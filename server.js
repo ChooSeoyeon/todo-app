@@ -51,10 +51,11 @@ app.post('/add', function(요청,응답){
         db.collection('post').insertOne({_id: 총게시물개수+1, 제목: 요청.body.title, 날짜: 요청.body.date}, function(){
             console.log('저장완료');
             //  +counter라는 콜렉션에 있는 totalPost라는 항목도 1 증가시켜야함.
-             db.collection('counter').updateOne({name: '게시물개수'}, { $inc : {totalPost:1} }, function(에러, 결과){
+            db.collection('counter').updateOne({name: '게시물개수'}, { $inc : {totalPost:1} }, function(에러, 결과){
                 if (에러) { return console.log(에러) }
              });
         });
+        
     });
 });
 
@@ -67,4 +68,26 @@ app.get('/list', function(요청, 응답){
         console.log(결과);
         응답.render('list.ejs', { posts : 결과 });
     });
+});
+
+app.delete('/delete', function(요청, 응답){
+    console.log(요청.body);
+    요청.body._id = parseInt(요청.body._id);
+    //요청.body에 담겨온 게시물번호를 가진 글을 db에서 찾아서 삭제해주세요
+    db.collection('post').deleteOne( 요청.body, function(에러, 결과){
+        console.log('삭제완료');
+        응답.status(204).send({message: '성공했습니다'});
+    });
+});
+
+// /detail2로 접속하면 detail2.ejs 보여줌
+// /detail4로 접속하면 detail4.ejs 보여줌
+// 간략화
+
+app.get('/detail/:id', function(요청, 응답){
+    db.collection('post').findOne({_id: parseInt(요청.params.id)}, function(에러, 결과){
+        console.log(결과);
+        응답.render('detail.ejs', { data: 결과 });
+    })
+    
 });
