@@ -29,10 +29,22 @@
       <ul class="list-group">
         <% for(var i=0; i < posts.length; i++){ %>
         <li class="list-group-item">
+          <!-- list-group-item-secondary -->
           <p>글번호: <%= posts[i]._id %></p>
-          <h4>할 일 제목: <%= posts[i].제목 %></h4>
-          <p>할 일 마감날짜: <%= posts[i].날짜 %></p>
-          <a href="/posts/<%= posts[i]._id %>">링크</a>
+          <h4>할일 제목: <%= posts[i].제목 %></h4>
+          <p>할일 마감날짜: <%= posts[i].날짜 %></p>
+          <a
+            href="/posts/<%= posts[i]._id %>"
+            class="btn btn-primary btn-secondary"
+            >링크</a
+          >
+          <button
+            class="btn btn-primary"
+            onclick="location.href='/edit/<%= posts[i]._id %>'"
+            type="button"
+          >
+            수정
+          </button>
           <button
             class="delete btn btn-danger"
             data-id="<%= posts[i]._id %>"
@@ -54,7 +66,7 @@
         $.ajax({
           method: "DELETE",
           url: "/posts/" + 글번호,
-          // data: {}, //id가 1인 데이터
+          // data: {_id:글번호}, //id가 1인 데이터
         })
           .done(function (결과) {
             // 페이지를 강제로 새로고침해주세요

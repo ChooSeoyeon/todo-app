@@ -1,3 +1,31 @@
 body {
   font-family: "맑은고딕";
 }
+
+.main-background {
+  background-image: url("background.jpg");
+  background-size: cover;
+  padding-top: 100px;
+  color: white;
+}
+
+select {
+  padding: 7px;
+  vertical-align: middle;
+}
+
+.id_input,
+.pw_input {
+  width: 300px;
+  padding: 5px;
+  border: 1px solid #dedede;
+}
+
+.email_input {
+  width: 150px;
+  padding: 5px;
+  border: 1px solid #dedede;
+}
+.email_input:read-only {
+  background-color: #dedede;
+}
